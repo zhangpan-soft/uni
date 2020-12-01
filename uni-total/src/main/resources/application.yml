@@ -1,0 +1,206 @@
+server:
+  port: 8088
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/uni?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,log4j
+      use-global-data-source-stat: true
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      # 配置监控服务器
+      stat-view-servlet:
+        login-username: zhangpan_soft
+        login-password: zhangpan_soft123123
+        reset-enable: false
+        url-pattern: /druid/*
+        # 添加IP白名单
+        #allow:
+        # 添加IP黑名单，当白名单和黑名单重复时，黑名单优先级更高
+        #deny:
+      web-stat-filter:
+        # 添加过滤规则
+        url-pattern: /*
+        # 忽略过滤格式
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: com.dv.universal.commons.web.jpa.MySQL5InnoDBDialectUtf8mb4
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+    database: 1
+    lettuce:
+      pool:
+        max-active: 2000
+        max-wait: 6s
+        max-idle: 100
+        min-idle: 10
+      shutdown-timeout: 100ms
+  aop:
+    auto: true
+  jackson:
+    locale: zh_CN
+    time-zone: Asia/Shanghai
+    default-property-inclusion: non_null
+    serialization: {write-dates-as-timestamps: true}
+    deserialization: {fail-on-unknown-properties: false}
+  thymeleaf:
+    cache: true
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
+
+token:
+  timeout: 604800
+  secret: ZTJlMjAxMWM0M2Q0NTdkYmM4MmNhNjcxZTJjNTEyM2Y=
+
+logging:
+  config: classpath:logback-spring.xml
+
+knife4j:
+  basic:
+    enable: true
+    username: zhangpan_soft
+    password: zhangpan_soft123123
+
+sign:
+  key: 3ST6IRdF6Ocdt#UD(SdOrGAgoHY6G1Bm
+
+ali:
+  sms:
+    signName: 登录验证
+    version: 2017-05-25
+    regionId: cn-hangzhou
+    sendUrl: dysmsapi.aliyuncs.com
+  accessKeySecret:
+  accessKeyId:
+  signatureMethod: HMAC-SHA1
+  signatureVersion: 1.0
+  format: JSON
+  oss:
+    endpoint:
+    bucketName:
+    baseUrl:
+
+wx:
+  pay:
+    baseUrl:
+    #微信公众号或者小程序等的appid
+    appId:
+    #微信支付商户号
+    mchId:
+    #微信支付商户密钥
+    mchKey:
+    #服务商模式下的子商户公众账号ID
+    #subAppId:
+    #服务商模式下的子商户号
+    #subMchId:
+    # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+    keyPath:
+    # 通知url
+    notifyUrl: ${wx.pay.baseUrl}/goods/pay/wx/notify
+    #  退款通知url
+    refundNotifyUrl: ${wx.pay.baseUrl}/goods/pay/wx/refund/notify
+    spbillCreateIp:
+  miniapp:
+    configs:
+    - appid:
+      #微信小程序的Secret
+      secret:
+      #微信小程序消息服务器配置的token
+      token:
+      #微信小程序消息服务器配置的EncodingAESKey
+      aesKey:
+      msgDataFormat: JSON
+  mp:
+    useRedis: true
+    redisConfig:
+      host: 127.0.0.1
+      port: 6379
+      password: 123456
+    configs:
+    - appId:
+      secret:
+      token:
+      aesKey:
+
+swagger2:
+  properties:
+  - contact: zhangpan_soft
+    group-name: 基础模块
+    title: 基础模块
+    terms-of-service-url: https://www.csdn.net/zhangpan_soft
+    version: 1.0
+    basic-package: com.dv.uni.sys.controller
+    parameters:
+    - name: access-token
+      description: "登录校验,三选一"
+      model-ref: string
+      parameter-type: header
+      required: false
+    - name: Authentication
+      description: "登录校验,三选一"
+      model-ref: string
+      parameter-type: header
+      required: false
+    - name: Authentication
+      description: "登录校验,三选一"
+      model-ref: string
+      parameter-type: query
+      required: false
+  - contact: zhangpan_soft
+    group-name: 商城模块
+    title: 商城模块
+    terms-of-service-url: https://www.csdn.net/zhangpan_soft
+    version: 1.0
+    basic-package: com.dv.uni.mall.controller
+    parameters:
+    - name: access-token
+      description: "登录校验,三选一"
+      model-ref: string
+      parameter-type: header
+      required: false
+    - name: Authentication
+      description: "登录校验,三选一"
+      model-ref: string
+      parameter-type: header
+      required: false
+    - name: Authentication
+      description: "登录校验,三选一"
+      model-ref: string
+      parameter-type: query
+      required: false

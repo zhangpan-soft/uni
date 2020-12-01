@@ -1,10 +1,10 @@
 package com.dv.uni.commons.config;
 
 import com.alibaba.fastjson.JSON;
-import com.dv.universal.commons.basic.exceptions.BaseException;
-import com.dv.universal.commons.basic.models.Status;
-import com.dv.universal.commons.basic.models.entity.Result;
-import com.dv.universal.commons.basic.utils.StringUtils;
+import com.dv.uni.commons.entity.Result;
+import com.dv.uni.commons.enums.Status;
+import com.dv.uni.commons.exceptions.BaseException;
+import com.dv.uni.commons.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

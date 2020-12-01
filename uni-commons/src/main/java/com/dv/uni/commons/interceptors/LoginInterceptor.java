@@ -23,12 +23,11 @@ public class LoginInterceptor implements HandlerInterceptor {
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             return true;
         }
-        Permission permission = null;
         if (handler instanceof HandlerMethod) {
             IgnoreAuth ignoreAuth = ((HandlerMethod) handler).getMethodAnnotation(IgnoreAuth.class);
             if (ignoreAuth != null)
                 return true;
-            permission = ((HandlerMethod) handler).getMethodAnnotation(Permission.class);
+            Permission permission = ((HandlerMethod) handler).getMethodAnnotation(Permission.class);
             if (!SecurityUtils.verify(SecurityUtils.get())) {
                 throw BaseException.of(Status.CUSTOM, "token校验失败");
             }

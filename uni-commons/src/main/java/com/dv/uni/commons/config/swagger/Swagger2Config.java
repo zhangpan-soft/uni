@@ -1,6 +1,6 @@
 package com.dv.uni.commons.config.swagger;
 
-import com.dv.universal.commons.basic.utils.StringUtils;
+import com.dv.uni.commons.utils.StringUtils;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import lombok.Data;
 import org.springframework.beans.BeansException;
